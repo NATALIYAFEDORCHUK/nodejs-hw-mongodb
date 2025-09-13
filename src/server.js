@@ -6,10 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
-
 export const setupServer = () => {
-
   const app = express();
   const PORT = Number(process.env.PORT) || 3000;
 
@@ -29,6 +26,7 @@ export const setupServer = () => {
       const contacts = await getAllContacts();
 
       res.status(200).json({
+        status: 200,
         message: 'Successfully found contacts!',
         data: contacts,
       });
@@ -44,10 +42,13 @@ export const setupServer = () => {
 
       if (!contact) {
         res.status(404).json({
+          status: 404,
           message: 'Contact not found',
         });
+        return;
       }
       res.status(200).json({
+        status: 200,
         message: `Successfully found contact with id ${contactId}!`,
         data: contact,
       });
@@ -57,7 +58,10 @@ export const setupServer = () => {
   });
 
   app.use((req, res, next) => {
-    res.status(404).json({ message: 'Not found' });
+    res.status(404).json({
+      status: 404,
+      message: 'Not found',
+    });
     next();
   });
 
@@ -65,7 +69,8 @@ export const setupServer = () => {
     console.error(err);
 
     res.status(500).json({
-      message: 'Interval Server Error',
+      status: 500,
+      message: 'Internal Server Error',
     });
     next(err);
     return app;

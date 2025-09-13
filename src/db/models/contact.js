@@ -1,34 +1,37 @@
-import { model, Schema  } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const contactSchema = new Schema(
-{
+  {
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     phoneNumber: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-email: {
-    type: String,
-},
-isFavourite: {
-    type: Boolean,
-    default: false,
-},
-contactType: {
-    type: String,
-    enum: ['work', 'home', 'personal'],
-    required: true,
-    default: 'personal'
-},
-},
-{
+    email: {
+      type: String,
+    },
+    isFavourite: {
+      type: Boolean,
+      default: false,
+    },
+    contactType: {
+      type: String,
+      enum: ['work', 'home', 'personal'],
+      required: true,
+      default: 'personal',
+    },
+  },
+  {
     timestamps: true,
-    versionKey: false, 
-},
+    versionKey: false,
+  },
 );
 
-export const ContactsCollection = model('Contact', contactSchema,  'contacts');
-console.log("ContactsCollection uses collection:", ContactsCollection.collection.name);
+export const ContactsCollection = model('Contact', contactSchema, 'contacts');
+console.log(
+  'ContactsCollection uses collection:',
+  ContactsCollection.collection.name,
+);
