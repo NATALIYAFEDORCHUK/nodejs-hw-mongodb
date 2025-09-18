@@ -33,25 +33,6 @@ export const setupServer = () => {
   app.use(notFoundHandler);
   app.use(errorHandler);
 
-  app.use((req, res, next) => {
-    res.status(404).json({
-      status: 404,
-      message: 'Not found',
-    });
-    next();
-  });
-
-  app.use((err, req, res, next) => {
-    console.error(err);
-
-    res.status(500).json({
-      status: 500,
-      message: 'Internal Server Error',
-    });
-    next(err);
-    return app;
-  });
-
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
